@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Official Login – Nagrik Setu</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: rgb(63, 90, 149);
+        }
+    </style>
+</head>
+
+<body class="login-page">
+    <div class="form-box official-login-box">
+        <div class="login-header">
+            <h2>Official Login</h2>
+            <p>Access the administrative dashboard for complaint management and civic issue resolution.</p>
+        </div>
+
+        <!-- <div class="login-info">
+            <h3>Who can access?</h3>
+            <ul>
+                <li>Municipal Corporation Officials</li>
+                <li>Department Heads</li>
+                <li>Field Officers</li>
+                <li>Complaint Resolution Teams</li>
+            </ul>
+        </div>
+         -->
+        <form action="#" method="POST">
+            <label for="official-id">Official ID:</label>
+            <input type="text" id="official-id" name="official-id" placeholder="Enter your official ID" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <div class="remember-me">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Keep me signed in</label>
+            </div>
+
+            <button id="login-button" type="submit">Login to Dashboard</button>
+        </form>
+
+        <div class="login-footer">
+            <p>Are you a citizen? <a href="login.html">Login here</a></p>
+            <p><a href="index.html" class="home-link">← Back to Home</a></p>
+        </div>
+
+        <!-- <div class="official-features">
+            <h4>Official Dashboard Features:</h4>
+            <ul>
+                <li>View and manage citizen complaints</li>
+                <li>Update complaint status</li>
+                <li>Assign tasks to field officers</li>
+                <li>Generate reports and analytics</li>
+                <li>Communicate with citizens</li>
+            </ul>
+        </div> -->
+    </div>
+</body>
+<div id="notification" class="popup"></div>
+</body>
+
+</html>

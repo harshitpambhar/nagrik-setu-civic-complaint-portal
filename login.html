@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Login – Nagrik Setu</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: rgb(63, 90, 149);
+        }
+    </style>
+</head>
+
+<body class="login-page">
+    <div class="form-box citizen-login-box">
+        <div class="login-header">
+            <h2>Citizen Login</h2>
+            <p>Welcome to Nagrik Setu! Access your dashboard to manage complaints and track their status.</p>
+        </div>
+
+        <form action="#" method="POST">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your registered email" required>
+            <div class="field-error" id="email-error"></div>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <div class="field-error" id="password-error"></div>
+
+            <div class="remember-me">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Remember Me</label>
+            </div>
+
+            <button id="login-button" type="submit">Login to Dashboard</button>
+            <div style="text-align:right; margin-top:8px;">
+                <a href="forgetpassword.html" class="home-link">Forgot Password?</a>
+            </div>
+        </form>
+
+        <div class="login-footer">
+            <p>Don't have an account? <a href="register.html">Register here</a></p>
+            <p><a href="index.html" class="home-link">← Back to Home</a></p>
+        </div>
+    </div>
+
+    <script src="register-js/validation.js"></script>
+    <script src="register-js/connection.js"></script>
+    <script src="script.js"></script>
+    <div id="notification" class="popup"></div>
+</body>
+
+</html>

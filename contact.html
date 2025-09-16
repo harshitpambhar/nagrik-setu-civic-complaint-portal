@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Contact – Nagrik Setu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="home-page">
+    <header>
+        <h1>Contact Us</h1>
+        <p>Get in touch with our support team for any assistance</p>
+    </header>
+    <nav class="contact-nav">
+        <div id="home"><a href="index.html">Home</a></div>
+        <div id="register"><a href="register.html">Citizen Register</a></div>
+        <div id="login"><a href="login.html">Citizen Login</a></div>
+        <div id="register-complaint"><a href="register-complaint.html">Register Complaint</a></div>
+        <div id="track-complaint"><a href="track-complaint.html">Track Complaint</a></div>
+        <div id="official-login"><a href="official-login.html">Official Login</a></div>
+        <div id="about"><a href="about.html">About</a></div>
+        <div id="contact"><a href="contact.html">Contact</a></div>
+        <div id="faq"><a href="faq.html">FAQ</a></div>
+    </nav>
+    <main>
+        <div class="container">
+            <section class="intro text-center">
+                <h2>Get in Touch</h2>
+                <p>Have questions about Nagrik Setu? Need help with your complaint? Our support team is here to assist
+                    you.</p>
+            </section>
+
+            <div class="contact-grid">
+                <section class="contact-form-section">
+                    <h3>Send us a Message</h3>
+                    <form class="form-box" action="#" method="POST">
+                        <label for="name">Your Full Name:</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+
+                        <label for="subject">Subject:</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="complaint-help">Complaint Assistance</option>
+                            <option value="technical">Technical Support</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="other">Other</option>
+                        </select>
+
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" placeholder="Please describe your inquiry in detail..."
+                            rows="5" required></textarea>
+
+                        <button type="submit">Send Message</button>
+                    </form>
+                </section>
+
+                <section class="contact-info-section">
+                    <h3>Contact Information</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-text">
+                                <strong>Email Support</strong>
+                                <p>support@nagriksetu.in</p>
+                                <small>Response within 24 hours</small>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div class="contact-text">
+                                <strong>Phone Support</strong>
+                                <p>+91-9876543210</p>
+                                <small>Monday to Friday, 9 AM - 6 PM</small>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-text">
+                                <strong>Office Address</strong>
+                                <p>123 Civic Center, Mumbai, Maharashtra, India</p>
+                                <small>Visit us during office hours</small>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">⏰</div>
+                            <div class="contact-text">
+                                <strong>Working Hours</strong>
+                                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                <small>Saturday: 9:00 AM - 1:00 PM</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="emergency-contact">
+                        <h4>Emergency Contact</h4>
+                        <p>For urgent civic issues, contact your local municipal office directly.</p>
+                        <p><strong>Municipal Helpline:</strong> 1800-XXX-XXXX</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Nagrik Setu | <a href="#">Terms</a> | <a href="#">Privacy</a></p>
+        <p>Contact us at: support@nagriksetu.in</p>
+    </footer>
+</body>
+<div id="notification" class="popup"></div>
+</body>
+
+</html>

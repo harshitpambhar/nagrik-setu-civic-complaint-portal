@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Test - Nagrik Setu</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: rgb(63, 90, 149);
+            padding: 20px;
+        }
+        .debug-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .debug-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+        }
+        .debug-section h3 {
+            color: #0275d8;
+            margin-bottom: 15px;
+        }
+        .debug-button {
+            background: #0275d8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .debug-button:hover {
+            background: #025aa5;
+        }
+        .console-output {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <h1>Debug Test Page</h1>
+        <p>This page tests all validation functions and shows console output.</p>
+        
+        <div class="debug-section">
+            <h3>Test Form</h3>
+            <form id="debug-form">
+                <label for="debug-name">Name:</label>
+                <input type="text" id="debug-name" name="debug-name" placeholder="Enter name">
+                <div class="field-error" id="debug-name-error"></div>
+
+                <label for="debug-email">Email:</label>
+                <input type="email" id="debug-email" name="debug-email" placeholder="Enter email">
+                <div class="field-error" id="debug-email-error"></div>
+
+                <label for="debug-phone">Phone:</label>
+                <input type="tel" id="debug-phone" name="debug-phone" placeholder="Enter phone">
+                <div class="field-error" id="debug-phone-error"></div>
+
+                <label for="debug-password">Password:</label>
+                <input type="password" id="debug-password" name="debug-password" placeholder="Enter password">
+                <div class="field-error" id="debug-password-error"></div>
+
+                <button type="submit" class="debug-button">Test Submit</button>
+            </form>
+        </div>
+        
+        <div class="debug-section">
+            <h3>Test Functions</h3>
+            <button class="debug-button" onclick="testValidation()">Test Validation Functions</button>
+            <button class="debug-button" onclick="testPasswordStrength()">Test Password Strength</button>
+            <button class="debug-button" onclick="testNotifications()">Test Notifications</button>
+            <button class="debug-button" onclick="clearConsole()">Clear Console</button>
+        </div>
+        
+        <div class="debug-section">
+            <h3>Console Output</h3>
+            <div id="console-output" class="console-output">Console output will appear here...</div>
+        </div>
+        
+        <div class="debug-section">
+            <h3>Function Status</h3>
+            <div id="function-status">
+                <p>Checking function availability...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="register-js/validation.js"></script>
+    <script src="register-js/connection.js"></script>
+    <script src="script.js"></script>
+    
+    <script>
+        // Capture console output
+        const originalConsoleLog = console.log;
+        const originalConsoleError = console.error;
+        const consoleOutput = document.getElementById('console-output');
+        
+        function addToConsole(message) {
+            consoleOutput.textContent += message + '\n';
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+        
+        console.log = function(...args) {
+            originalConsoleLog.apply(console, args);
+            addToConsole('LOG: ' + args.join(' '));
+        };
+        
+        console.error = function(...args) {
+            originalConsoleError.apply(console, args);
+            addToConsole('ERROR: ' + args.join(' '));
+        };
+        
+        // Test functions
+        function testValidation() {
+            console.log('=== Testing Validation Functions ===');
+            
+            // Test name validation
+            console.log('Testing name validation...');
+            console.log('validateName("John"):', validateName('John'));
+            console.log('validateName("123"):', validateName('123'));
+            console.log('validateName(""):', validateName(''));
+            
+            // Test email validation
+            console.log('Testing email validation...');
+            console.log('validateEmail("john@example.com"):', validateEmail('john@example.com'));
+            console.log('validateEmail("invalid"):', validateEmail('invalid'));
+            console.log('validateEmail(""):', validateEmail(''));
+            
+            // Test phone validation
+            console.log('Testing phone validation...');
+            console.log('validatePhone("1234567890"):', validatePhone('1234567890'));
+            console.log('validatePhone("123"):', validatePhone('123'));
+            console.log('validatePhone(""):', validatePhone(''));
+            
+            // Test password validation
+            console.log('Testing password validation...');
+            console.log('validatePassword("StrongPass123"):', validatePassword('StrongPass123'));
+            console.log('validatePassword("weak"):', validatePassword('weak'));
+            console.log('validatePassword(""):', validatePassword(''));
+        }
+        
+        function testPasswordStrength() {
+            console.log('=== Testing Password Strength ===');
+            console.log('checkPasswordStrength("weak"):', checkPasswordStrength('weak'));
+            console.log('checkPasswordStrength("StrongPass123"):', checkPasswordStrength('StrongPass123'));
+            console.log('checkPasswordStrength(""):', checkPasswordStrength(''));
+        }
+        
+        function testNotifications() {
+            console.log('=== Testing Notifications ===');
+            showNotification('Test success message', 'success');
+            setTimeout(() => {
+                showNotification('Test error message', 'error');
+            }, 1000);
+            setTimeout(() => {
+                showNotification('Test info message', 'info');
+            }, 2000);
+        }
+        
+        function clearConsole() {
+            consoleOutput.textContent = 'Console cleared...\n';
+        }
+        
+        function checkFunctionStatus() {
+            const statusDiv = document.getElementById('function-status');
+            const functions = [
+                'validateName',
+                'validateEmail', 
+                'validatePhone',
+                'validatePassword',
+                'validateArea',
+                'validateField',
+                'validateRegistrationForm',
+                'validateLoginForm',
+                'checkPasswordStrength',
+                'updatePasswordStrength',
+                'showNotification',
+                'displaySuccessCard'
+            ];
+            
+            let status = '<h4>Function Status:</h4><ul>';
+            functions.forEach(funcName => {
+                const exists = typeof window[funcName] === 'function';
+                status += `<li>${funcName}: ${exists ? '✅ Available' : '❌ Missing'}</li>`;
+            });
+            status += '</ul>';
+            
+            statusDiv.innerHTML = status;
+        }
+        
+        // Initialize debug page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Debug page loaded');
+            checkFunctionStatus();
+            
+            // Add form submit handler
+            const debugForm = document.getElementById('debug-form');
+            debugForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('Debug form submitted');
+                
+                // Test form validation
+                const name = document.getElementById('debug-name').value;
+                const email = document.getElementById('debug-email').value;
+                const phone = document.getElementById('debug-phone').value;
+                const password = document.getElementById('debug-password').value;
+                
+                console.log('Form values:', { name, email, phone, password });
+                
+                // Test individual field validation
+                if (typeof validateField === 'function') {
+                    validateField(document.getElementById('debug-name'), validateName);
+                    validateField(document.getElementById('debug-email'), validateEmail);
+                    validateField(document.getElementById('debug-phone'), validatePhone);
+                    validateField(document.getElementById('debug-password'), validatePassword);
+                } else {
+                    console.error('validateField function not available');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Validation Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input.error {
+            border-color: #dc3545;
+            background-color: #fff5f5;
+        }
+        input.valid {
+            border-color: #28a745;
+            background-color: #f8fff9;
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            padding: 5px;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 3px;
+            display: none;
+        }
+        .success-message {
+            color: #28a745;
+            font-size: 14px;
+            margin-top: 5px;
+            padding: 5px;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 3px;
+            display: none;
+        }
+        button {
+            background: #0275d8;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #025aa5;
+        }
+        .password-strength {
+            margin-top: 10px;
+        }
+        .strength-meter {
+            width: 100%;
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .strength-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        .strength-text {
+            margin-top: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .test-buttons {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .test-btn {
+            background: #6c757d;
+            margin: 5px;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Simple Validation Test</h1>
+        <p>This page tests the validation functions with clear visual feedback.</p>
+        
+        <form id="test-form">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name">
+                <div class="error-message" id="name-error"></div>
+                <div class="success-message" id="name-success"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email">
+                <div class="error-message" id="email-error"></div>
+                <div class="success-message" id="email-success"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter 10-digit phone number">
+                <div class="error-message" id="phone-error"></div>
+                <div class="success-message" id="phone-success"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter password">
+                <div class="password-strength">
+                    <div class="strength-meter">
+                        <div class="strength-fill" id="strength-fill"></div>
+                    </div>
+                    <div class="strength-text" id="strength-text">Very Weak</div>
+                </div>
+                <div class="error-message" id="password-error"></div>
+                <div class="success-message" id="password-success"></div>
+            </div>
+            
+            <button type="submit">Test Submit</button>
+        </form>
+        
+        <div class="test-buttons">
+            <h3>Quick Tests:</h3>
+            <button class="test-btn" onclick="testInvalidData()">Test Invalid Data</button>
+            <button class="test-btn" onclick="testValidData()">Test Valid Data</button>
+            <button class="test-btn" onclick="clearForm()">Clear Form</button>
+        </div>
+        
+        <div id="results" style="margin-top: 20px; padding: 15px; background: #e9ecef; border-radius: 5px;">
+            <h3>Test Results:</h3>
+            <div id="results-content">Fill the form and submit to see results.</div>
+        </div>
+    </div>
+
+    <script src="register-js/validation.js"></script>
+    <script src="register-js/connection.js"></script>
+    
+    <script>
+        // Simple validation functions for testing
+        function validateNameSimple(name) {
+            if (name.trim() === '') {
+                return { isValid: false, message: 'Name is required' };
+            }
+            if (name.length < 2) {
+                return { isValid: false, message: 'Name must be at least 2 characters long' };
+            }
+            if (!/^[a-zA-Z\s]+$/.test(name)) {
+                return { isValid: false, message: 'Name can only contain letters and spaces' };
+            }
+            return { isValid: true, message: 'Name looks good!' };
+        }
+
+        function validateEmailSimple(email) {
+            if (email.trim() === '') {
+                return { isValid: false, message: 'Email is required' };
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                return { isValid: false, message: 'Please enter a valid email address' };
+            }
+            return { isValid: true, message: 'Email looks good!' };
+        }
+
+        function validatePhoneSimple(phone) {
+            if (phone.trim() === '') {
+                return { isValid: false, message: 'Phone number is required' };
+            }
+            if (!/^\d{10}$/.test(phone.replace(/\s/g, ''))) {
+                return { isValid: false, message: 'Phone number must be exactly 10 digits' };
+            }
+            return { isValid: true, message: 'Phone looks good!' };
+        }
+
+        function validatePasswordSimple(password) {
+            if (password.trim() === '') {
+                return { isValid: false, message: 'Password is required' };
+            }
+            if (password.length < 8) {
+                return { isValid: false, message: 'Password must be at least 8 characters long' };
+            }
+            if (!/[A-Z]/.test(password)) {
+                return { isValid: false, message: 'Password must contain at least one uppercase letter' };
+            }
+            if (!/[a-z]/.test(password)) {
+                return { isValid: false, message: 'Password must contain at least one lowercase letter' };
+            }
+            if (!/\d/.test(password)) {
+                return { isValid: false, message: 'Password must contain at least one number' };
+            }
+            return { isValid: true, message: 'Password looks good!' };
+        }
+
+        function updatePasswordStrengthSimple(password) {
+            const strengthFill = document.getElementById('strength-fill');
+            const strengthText = document.getElementById('strength-text');
+            
+            let strength = 0;
+            if (password.length >= 8) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/[a-z]/.test(password)) strength += 25;
+            if (/\d/.test(password)) strength += 25;
+            
+            strengthFill.style.width = strength + '%';
+            
+            let color = '#dc3545';
+            let text = 'Very Weak';
+            
+            if (strength >= 100) {
+                color = '#20c997';
+                text = 'Very Strong';
+            } else if (strength >= 75) {
+                color = '#28a745';
+                text = 'Strong';
+            } else if (strength >= 50) {
+                color = '#ffc107';
+                text = 'Medium';
+            } else if (strength >= 25) {
+                color = '#fd7e14';
+                text = 'Weak';
+            }
+            
+            strengthFill.style.backgroundColor = color;
+            strengthText.textContent = text;
+            strengthText.style.color = color;
+        }
+
+        function validateFieldSimple(field, validationFunction) {
+            const value = field.value;
+            const result = validationFunction(value);
+            
+            const errorElement = document.getElementById(field.id + '-error');
+            const successElement = document.getElementById(field.id + '-success');
+            
+            // Clear previous messages
+            if (errorElement) errorElement.style.display = 'none';
+            if (successElement) successElement.style.display = 'none';
+            
+            // Remove previous classes
+            field.classList.remove('error', 'valid');
+            
+            if (!result.isValid) {
+                field.classList.add('error');
+                if (errorElement) {
+                    errorElement.textContent = result.message;
+                    errorElement.style.display = 'block';
+                }
+                return false;
+            } else {
+                field.classList.add('valid');
+                if (successElement) {
+                    successElement.textContent = result.message;
+                    successElement.style.display = 'block';
+                }
+                return true;
+            }
+        }
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Simple test page loaded');
+            
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    console.log('Input event:', this.id, this.value);
+                    
+                    switch(this.id) {
+                        case 'name':
+                            validateFieldSimple(this, validateNameSimple);
+                            break;
+                        case 'email':
+                            validateFieldSimple(this, validateEmailSimple);
+                            break;
+                        case 'phone':
+                            validateFieldSimple(this, validatePhoneSimple);
+                            break;
+                        case 'password':
+                            validateFieldSimple(this, validatePasswordSimple);
+                            updatePasswordStrengthSimple(this.value);
+                            break;
+                    }
+                });
+            });
+            
+            const form = document.getElementById('test-form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('Form submitted');
+                
+                let isValid = true;
+                isValid = validateFieldSimple(document.getElementById('name'), validateNameSimple) && isValid;
+                isValid = validateFieldSimple(document.getElementById('email'), validateEmailSimple) && isValid;
+                isValid = validateFieldSimple(document.getElementById('phone'), validatePhoneSimple) && isValid;
+                isValid = validateFieldSimple(document.getElementById('password'), validatePasswordSimple) && isValid;
+                
+                const resultsContent = document.getElementById('results-content');
+                if (isValid) {
+                    resultsContent.innerHTML = '<strong style="color: #28a745;">✅ Form is valid! All fields passed validation.</strong>';
+                } else {
+                    resultsContent.innerHTML = '<strong style="color: #dc3545;">❌ Form has errors. Please fix the highlighted fields above.</strong>';
+                }
+            });
+        });
+
+        // Test functions
+        function testInvalidData() {
+            document.getElementById('name').value = '123';
+            document.getElementById('email').value = 'invalid';
+            document.getElementById('phone').value = '123';
+            document.getElementById('password').value = 'weak';
+            
+            // Trigger validation
+            document.getElementById('name').dispatchEvent(new Event('input'));
+            document.getElementById('email').dispatchEvent(new Event('input'));
+            document.getElementById('phone').dispatchEvent(new Event('input'));
+            document.getElementById('password').dispatchEvent(new Event('input'));
+        }
+
+        function testValidData() {
+            document.getElementById('name').value = 'John Doe';
+            document.getElementById('email').value = 'john@example.com';
+            document.getElementById('phone').value = '1234567890';
+            document.getElementById('password').value = 'StrongPass123';
+            
+            // Trigger validation
+            document.getElementById('name').dispatchEvent(new Event('input'));
+            document.getElementById('email').dispatchEvent(new Event('input'));
+            document.getElementById('phone').dispatchEvent(new Event('input'));
+            document.getElementById('password').dispatchEvent(new Event('input'));
+        }
+
+        function clearForm() {
+            document.getElementById('test-form').reset();
+            document.querySelectorAll('.error-message, .success-message').forEach(el => {
+                el.style.display = 'none';
+            });
+            document.querySelectorAll('input').forEach(input => {
+                input.classList.remove('error', 'valid');
+            });
+            document.getElementById('strength-fill').style.width = '0%';
+            document.getElementById('strength-text').textContent = 'Very Weak';
+            document.getElementById('results-content').innerHTML = 'Fill the form and submit to see results.';
+        }
+    </script>
+</body>
+</html> 

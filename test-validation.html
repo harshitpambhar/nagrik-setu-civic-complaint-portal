@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Validation - Nagrik Setu</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: rgb(63, 90, 149);
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+        }
+        .test-section h3 {
+            color: #0275d8;
+            margin-bottom: 15px;
+        }
+        .test-button {
+            background: #0275d8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #025aa5;
+        }
+        .error-demo {
+            border: 2px solid #dc3545;
+            background: #fff5f5;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success-demo {
+            border: 2px solid #28a745;
+            background: #f8fff9;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Form Validation Test</h1>
+        <p>This page tests the password strength meter and form validation functionality.</p>
+        
+        <div class="test-section">
+            <h3>Password Strength Meter Test</h3>
+            <form id="test-form">
+                <label for="test-password">Test Password:</label>
+                <input type="password" id="test-password" name="test-password" placeholder="Enter a password to test strength meter">
+                <div class="field-error" id="test-password-error"></div>
+                
+                <label for="test-email">Test Email:</label>
+                <input type="email" id="test-email" name="test-email" placeholder="Enter an email to test validation">
+                <div class="field-error" id="test-email-error"></div>
+                
+                <label for="test-phone">Test Phone:</label>
+                <input type="tel" id="test-phone" name="test-phone" placeholder="Enter a phone number to test validation">
+                <div class="field-error" id="test-phone-error"></div>
+                
+                <button type="submit" class="test-button">Test Validation</button>
+            </form>
+        </div>
+        
+        <div class="test-section">
+            <h3>Quick Test Buttons</h3>
+            <button class="test-button" onclick="testInvalidData()">Test Invalid Data</button>
+            <button class="test-button" onclick="testValidData()">Test Valid Data</button>
+            <button class="test-button" onclick="clearForm()">Clear Form</button>
+        </div>
+        
+        <div class="test-section">
+            <h3>Test Results</h3>
+            <div id="test-results">
+                <p>Enter data in the form above to see validation results.</p>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Expected Behavior</h3>
+            <div class="error-demo">
+                <strong>Error State:</strong> Fields should turn red with error messages below when invalid
+            </div>
+            <div class="success-demo">
+                <strong>Success State:</strong> Fields should turn green when valid
+            </div>
+            <ul>
+                <li>Password strength meter should appear below password field</li>
+                <li>Strength should update in real-time as you type</li>
+                <li>Error messages should appear immediately when typing invalid data</li>
+                <li>Fields should turn red when invalid and green when valid</li>
+                <li>Form submission should be blocked if there are errors</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h3>Test Cases</h3>
+            <ul>
+                <li><strong>Name:</strong> Try "123" (should show error - numbers not allowed)</li>
+                <li><strong>Email:</strong> Try "test" (should show error - invalid email)</li>
+                <li><strong>Phone:</strong> Try "123" (should show error - needs 10 digits)</li>
+                <li><strong>Password:</strong> Try "weak" (should show "Very Weak" strength)</li>
+                <li><strong>Valid Data:</strong> Try "John Doe", "john@example.com", "1234567890", "StrongPass123"</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="register-js/validation.js"></script>
+    <script src="register-js/connection.js"></script>
+    <script src="script.js"></script>
+    
+    <script>
+        // Additional test functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Test page loaded');
+            
+            const testForm = document.getElementById('test-form');
+            const testResults = document.getElementById('test-results');
+            
+            testForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const password = document.getElementById('test-password').value;
+                const email = document.getElementById('test-email').value;
+                const phone = document.getElementById('test-phone').value;
+                
+                let results = '<h4>Validation Results:</h4><ul>';
+                
+                // Test password strength
+                const passwordResult = checkPasswordStrength(password);
+                results += `<li>Password Strength: ${passwordResult.strength}%</li>`;
+                
+                // Test email validation
+                const emailResult = validateEmail(email);
+                results += `<li>Email Valid: ${emailResult.isValid ? 'Yes' : 'No'} - ${emailResult.message}</li>`;
+                
+                // Test phone validation
+                const phoneResult = validatePhone(phone);
+                results += `<li>Phone Valid: ${phoneResult.isValid ? 'Yes' : 'No'} - ${phoneResult.message}</li>`;
+                
+                results += '</ul>';
+                testResults.innerHTML = results;
+            });
+        });
+        
+        // Test functions
+        function testInvalidData() {
+            document.getElementById('test-password').value = 'weak';
+            document.getElementById('test-email').value = 'invalid';
+            document.getElementById('test-phone').value = '123';
+            
+            // Trigger validation
+            document.getElementById('test-password').dispatchEvent(new Event('input'));
+            document.getElementById('test-email').dispatchEvent(new Event('input'));
+            document.getElementById('test-phone').dispatchEvent(new Event('input'));
+        }
+        
+        function testValidData() {
+            document.getElementById('test-password').value = 'StrongPass123';
+            document.getElementById('test-email').value = 'john@example.com';
+            document.getElementById('test-phone').value = '1234567890';
+            
+            // Trigger validation
+            document.getElementById('test-password').dispatchEvent(new Event('input'));
+            document.getElementById('test-email').dispatchEvent(new Event('input'));
+            document.getElementById('test-phone').dispatchEvent(new Event('input'));
+        }
+        
+        function clearForm() {
+            document.getElementById('test-form').reset();
+            document.querySelectorAll('.field-error').forEach(error => {
+                error.style.display = 'none';
+            });
+            document.querySelectorAll('input').forEach(input => {
+                input.classList.remove('error', 'valid');
+            });
+            document.getElementById('test-results').innerHTML = '<p>Form cleared. Enter data to test validation.</p>';
+        }
+    </script>
+</body>
+</html> 

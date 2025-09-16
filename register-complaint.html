@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Complaint – Nagrik Setu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .problem-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(2, 117, 216, 0.10);
+            padding: 20px;
+            text-align: center;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .problem-card:hover {
+            box-shadow: 0 8px 24px rgba(2, 117, 216, 0.18);
+            transform: translateY(-4px) scale(1.03);
+        }
+
+        .problem-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .problem-title {
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #0275d8;
+        }
+
+        .problem-desc {
+            font-size: 0.98rem;
+            color: #222e3a;
+        }
+
+        /* Make the form look like a problem-card */
+        .complaint-form-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(2, 117, 216, 0.10);
+            padding: 20px 25px;
+            margin: 0;
+            width: 100%;
+            text-align: left;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .complaint-form-card:hover {
+            box-shadow: 0 8px 24px rgba(2, 117, 216, 0.18);
+            transform: translateY(-4px) scale(1.03);
+        }
+
+        .complaint-form-card h2 {
+            text-align: center;
+            color: #0275d8;
+        }
+
+        .complaint-form-card label {
+            display: block;
+            margin-top: 12px;
+            font-weight: 500;
+        }
+
+        .complaint-form-card input,
+        .complaint-form-card select,
+        .complaint-form-card textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .complaint-form-card button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0275d8;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .complaint-form-card button:hover {
+            background-color: #025aa5;
+        }
+
+        .side-by-side-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .side-by-side-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="register-complaint-header">
+        <h1>Register a Complaint</h1>
+        <p>Report civic issues in your area and help us improve your community.</p>
+    </header>
+    <nav class="register-complaint--nav">
+        <div id="home"><a href="index.html">Home</a></div>
+        <div id="register"><a href="register.html">Citizen Register</a></div>
+        <div id="login"><a href="login.html">Citizen Login</a></div>
+        <div id="register-complaint"><a href="register-complaint.html">Register Complaint</a></div>
+        <div id="track-complaint"><a href="track-complaint.html">Track Complaint</a></div>
+        <div id="official-login"><a href="official-login.html">Official Login</a></div>
+        <div id="about"><a href="about.html">About</a></div>
+        <div id="contact"><a href="contact.html">Contact</a></div>
+        <div id="faq"><a href="faq.html">FAQ</a></div>
+    </nav>
+    <main>
+        <section class="intro">
+            <h2>Common Problems You Can Report</h2>
+            <div class="side-by-side-container">
+                <div class="problems-section">
+                    <div class="problems-grid">
+                        <div class="problem-card">
+                            <div class="problem-icon">🗑️</div>
+                            <div class="problem-title">Garbage Not Collected</div>
+                            <div class="problem-desc">Overflowing bins, uncollected waste, or garbage dumped in public
+                                areas.
+                            </div>
+                        </div>
+                        <div class="problem-card">
+                            <div class="problem-icon">💧</div>
+                            <div class="problem-title">Water Leakage</div>
+                            <div class="problem-desc">Leaking pipes, water wastage, or water supply issues in your area.
+                            </div>
+                        </div>
+                        <div class="problem-card">
+                            <div class="problem-icon">🛣️</div>
+                            <div class="problem-title">Road Damage</div>
+                            <div class="problem-desc">Potholes, broken roads, or unsafe road conditions.</div>
+                        </div>
+                        <div class="problem-card">
+                            <div class="problem-icon">💡</div>
+                            <div class="problem-title">Street Light Not Working</div>
+                            <div class="problem-desc">Non-functional or broken street lights causing dark spots.</div>
+                        </div>
+                        <div class="problem-card">
+                            <div class="problem-icon">🚰</div>
+                            <div class="problem-title">Sewage/Drain Blockage</div>
+                            <div class="problem-desc">Blocked drains, overflowing sewage, or foul smell in public areas.
+                            </div>
+                        </div>
+                        <div class="problem-card">
+                            <div class="problem-icon">⚡</div>
+                            <div class="problem-title">Electricity Issue</div>
+                            <div class="problem-desc">Frequent power cuts, exposed wires, or faulty transformers.</div>
+                        </div>
+                        <div class="problem-card">
+                            <div class="problem-icon">🚻</div>
+                            <div class="problem-title">Public Toilet Issue</div>
+                            <div class="problem-desc">Dirty, locked, or non-functional public toilets.</div>
+                        </div>
+                        <div class="problem-card">
+                            <div class="problem-icon">🔊</div>
+                            <div class="problem-title">Noise Pollution</div>
+                            <div class="problem-desc">Loud construction, traffic, or public events causing disturbance.
+                            </div>
+                        </div>
+                        <div class="problem-card">
+                            <div class="problem-icon">🚧</div>
+                            <div class="problem-title">Construction Issues</div>
+                            <div class="problem-desc">Unsafe construction sites, debris on roads, or incomplete projects
+                                causing inconvenience.</div>
+                        </div>
+                        <div class="problem-card">
+                            <div class="problem-icon">❓</div>
+                            <div class="problem-title">Other</div>
+                            <div class="problem-desc">Any other civic issue not listed above.</div>
+                        </div>
+                    </div>
+                    <p style="text-align:center; margin-top:18px; color:#0275d8; font-weight:bold;">If your problem
+                        matches any
+                        above, select the category in the form below. Otherwise, describe your issue in detail.</p>
+                </div>
+                <div class="form-section">
+                    <div class="complaint-form-card">
+                        <h2>Register a Complaint</h2>
+                        <form action="/submit" method="POST" enctype="multipart/form-data">
+                            <label for="title">Complaint Title:</label>
+                            <input type="text" id="title" name="title" placeholder="E.g., Garbage not collected"
+                                required>
+                            <div class="field-error" id="title-error"></div>
+
+                            <label for="description">Detailed Description:</label>
+                            <textarea id="description" name="description" placeholder="Explain the problem clearly"
+                                rows="5" required></textarea>
+                            <div class="field-error" id="description-error"></div>
+
+                            <label for="location">Location of the Issue:</label>
+                            <input type="text" id="location" name="location" placeholder="E.g., Near Bus Stop, MG Road"
+                                required>
+                            <div class="field-error" id="location-error"></div>
+
+                            <label for="category">Category of Complaint:</label>
+                            <select id="category" name="category" required>
+                                <option value="">-- Select Category --</option>
+                                <option value="Garbage Not Collected">Garbage Not Collected</option>
+                                <option value="Water Leakage">Water Leakage</option>
+                                <option value="Road Damage">Road Damage</option>
+                                <option value="Street Light Not Working">Street Light Not Working</option>
+                                <option value="Sewage/Drain Blockage">Sewage/Drain Blockage</option>
+                                <option value="Electricity Issue">Electricity Issue</option>
+                                <option value="Public Toilet Issue">Public Toilet Issue</option>
+                                <option value="Noise Pollution">Noise Pollution</option>
+                                <option value="Construction Issues">Construction Issues</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div class="field-error" id="category-error"></div>
+
+                            <label for="image">Upload Image (optional):</label>
+                            <input type="file" id="image" name="image" accept="image/*">
+
+                            <label for="date_noticed">Date Issue Was First Noticed:</label>
+                            <input type="date" id="date_noticed" name="date_noticed" required>
+                            <div class="field-error" id="date_noticed-error"></div>
+
+                            <label for="name">Your Name:</label>
+                            <input type="text" id="name" name="citizen_name" placeholder="Your full name" required>
+                            <div class="field-error" id="name-error"></div>
+
+                            <label for="phone">Phone Number:</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Your mobile number" required>
+                            <div class="field-error" id="phone-error"></div>
+
+                            <button type="submit">Submit Complaint</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <footer>
+        <p>&copy; 2025 Nagrik Setu | <a href="#">Terms</a> | <a href="#">Privacy</a></p>
+        <p>Contact us at: support@nagriksetu.in</p>
+    </footer>
+
+    <script src="register-js/validation.js"></script>
+    <script src="register-js/connection.js"></script>
+    <script src="script.js"></script>
+    <div id="notification" class="popup"></div>
+</body>
+
+</html>

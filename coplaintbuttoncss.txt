@@ -1,0 +1,29 @@
+#register-complaint {
+    background-color: #ff4d4d;
+    color: #fff; /* Ensure high contrast */
+    text-shadow: 0 1px 2px rgba(0,0,0,0.15); /* Improve readability */
+    box-shadow: 0 2px 8px rgba(255, 77, 77, 0.25);
+    border: 1px solid #ffb3b3;
+    transition: box-shadow 0.2s, background 0.2s;
+}
+#register-complaint:hover {
+    background-color: #e63939;
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    box-shadow: 0 6px 20px rgba(255, 77, 77, 0.35);
+}
+
+#track-complaint {
+    background-color: #28a745;
+    color: #fff; /* Ensure high contrast */
+    text-shadow: 0 1px 2px rgba(0,0,0,0.15); /* Improve readability */
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.25);
+    border: 1px solid #a8e6b1;
+    transition: box-shadow 0.2s, background 0.2s;
+}
+#track-complaint:hover {
+    background-color: #218838;
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.35);
+}
