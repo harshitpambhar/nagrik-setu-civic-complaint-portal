@@ -326,74 +326,99 @@
         if (registerForm) {
             registerForm.addEventListener('submit', function (e) {
                 e.preventDefault();
-                console.log('Register form submitted');
+                const formData = new FormData(this);
 
-                // Validate all fields
-                const nameValid = validateFieldSimple(document.getElementById('name'), validateNameSimple);
-                const emailValid = validateFieldSimple(document.getElementById('email'), validateEmailSimple);
-                const phoneValid = validateFieldSimple(document.getElementById('phone'), validatePhoneSimple);
-                const passwordValid = validateFieldSimple(document.getElementById('password'), validatePasswordSimple);
-                const areaValid = validateFieldSimple(document.getElementById('area'), validateAreaSimple);
+                // Send to PHP using fetch
+                fetch('register.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.text()) // PHP echoes HTML/text
+                    .then(data => {
+                        // Show confirmation inside success-box
+                        document.getElementById('success-box').innerHTML = data;
 
-                let isValid = nameValid && emailValid && phoneValid && passwordValid && areaValid;
+                        // Optionally hide the form
+                        this.style.display = 'none';
 
-                // Check terms agreement
-                const terms = document.getElementById('terms');
-                if (!terms.checked) {
-                    const termsError = document.getElementById('terms-error');
-                    if (termsError) {
-                        termsError.textContent = 'You must agree to the terms and conditions';
-                        termsError.style.display = 'block';
-                    }
-                    isValid = false;
-                } else {
-                    const termsError = document.getElementById('terms-error');
-                    if (termsError) {
-                        termsError.style.display = 'none';
-                    }
-                }
-
-                if (!isValid) {
-                    console.log('Form validation failed - submission blocked');
-                    // Show notification if available
-                    if (typeof showNotification === 'function') {
-                        showNotification('❌ Please fix the errors highlighted in red above.', 'error');
-                    }
-                    return;
-                }
-
-                console.log('Form validation passed - proceeding with submission');
-
-                // Show loading state
-                const submitButton = this.querySelector('button[type="submit"]');
-                const originalText = submitButton.textContent;
-                submitButton.textContent = 'Creating Account...';
-                submitButton.disabled = true;
-
-                // Simulate form submission
-                setTimeout(() => {
-                    const formData = new FormData(this);
-                    const mockData = {
-                        success: true,
-                        name: formData.get('name'),
-                        area: formData.get('area'),
-                        phone: formData.get('phone'),
-                        email: formData.get('email')
-                    };
-
-                    if (typeof showNotification === 'function') {
-                        showNotification('✅ Registration successful! Welcome to Nagrik Setu.', 'success');
-                    }
-                    if (typeof displaySuccessCard === 'function') {
-                        displaySuccessCard(mockData);
-                    }
-                    this.style.display = 'none';
-
-                    // Reset button state
-                    submitButton.textContent = originalText;
-                    submitButton.disabled = false;
-                }, 1500);
+                        // Or show a notification if you already have showNotification()
+                        if (typeof showNotification === 'function') {
+                            showNotification('✅ Registration successful!', 'success');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("❌ Something went wrong. Please try again.");
+                    });
             });
+            console.log('Register form submitted');
+
+            // Validate all fields
+            const nameValid = validateFieldSimple(document.getElementById('name'), validateNameSimple);
+            const emailValid = validateFieldSimple(document.getElementById('email'), validateEmailSimple);
+            const phoneValid = validateFieldSimple(document.getElementById('phone'), validatePhoneSimple);
+            const passwordValid = validateFieldSimple(document.getElementById('password'), validatePasswordSimple);
+            const areaValid = validateFieldSimple(document.getElementById('area'), validateAreaSimple);
+
+            let isValid = nameValid && emailValid && phoneValid && passwordValid && areaValid;
+
+            // Check terms agreement
+            const terms = document.getElementById('terms');
+            if (!terms.checked) {
+                const termsError = document.getElementById('terms-error');
+                if (termsError) {
+                    termsError.textContent = 'You must agree to the terms and conditions';
+                    termsError.style.display = 'block';
+                }
+                isValid = false;
+            } else {
+                const termsError = document.getElementById('terms-error');
+                if (termsError) {
+                    termsError.style.display = 'none';
+                }
+            }
+
+            if (!isValid) {
+                console.log('Form validation failed - submission blocked');
+                // Show notification if available
+                if (typeof showNotification === 'function') {
+                    showNotification('❌ Please fix the errors highlighted in red above.', 'error');
+                }
+                return;
+            }
+
+            console.log('Form validation passed - proceeding with submission');
+
+            // Show loading state
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.textContent = 'Creating Account...';
+            submitButton.disabled = true;
+
+            // Simulate form submission
+            setTimeout(() => {
+                const formData = new FormData(this);
+                const mockData = {
+                    success: true,
+                    name: formData.get('name'),
+                    area: formData.get('area'),
+                    phone: formData.get('phone'),
+                    email: formData.get('email')
+                };
+
+                if (typeof showNotification === 'function') {
+                    showNotification('✅ Registration successful! Welcome to Nagrik Setu.', 'success');
+                }
+                if (typeof displaySuccessCard === 'function') {
+                    displaySuccessCard(mockData);
+                }
+                this.style.display = 'none';
+
+                // Reset button state
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }, 1500);
+        });
         }
     </script>
     <div id="notification" class="popup"></div>
