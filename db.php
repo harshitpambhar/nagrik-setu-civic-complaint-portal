@@ -1,12 +1,12 @@
 <?php
 $host = "localhost";
-$user = "root";   // change if your MySQL user is different
-$pass = "";       // change if your MySQL has a password
-$db   = "nagriksetu";
+$user = "root";   // change if needed
+$pass = "";       // add password if any
+$dbname = "nagriksetu";
 
-$conn = new mysqli($host, $user, $pass, $db);
+$conn = new mysqli($host, $user, $pass, $dbname);
 
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("❌ Connection failed: " . $conn->connect_error);
 }
 ?>

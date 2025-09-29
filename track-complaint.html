@@ -28,14 +28,13 @@
   <main>
     <section class="intro">
       <h2>Enter Complaint Details</h2>
-      <p>Please enter your Complaint ID to track the status. You can also provide your email or phone for verification.
-      </p>
+      <p>Please enter your Complaint ID to track the status. You can also provide your email or phone for verification.</p>
     </section>
 
     <div class="form-box">
-      <form id="track-form">
+      <form action="track_complaint.php" method="POST">
         <label for="complaint-id">Complaint ID:</label>
-        <input type="text" id="complaint-id" name="complaint-id" placeholder="e.g., CMP2025-0012" required>
+        <input type="text" id="complaint-id" name="complaint_id" placeholder="e.g., 1 or CMP2025-0001" required>
 
         <label for="email">Email (optional):</label>
         <input type="email" id="email" name="email" placeholder="Registered Email">
@@ -45,8 +44,6 @@
 
         <button type="submit">Track Complaint</button>
       </form>
-
-      <div id="complaint-status" class="success-box" style="display:none;"></div>
     </div>
   </main>
 
@@ -55,41 +52,7 @@
     <p>Contact us at: support@nagriksetu.in</p>
   </footer>
 
-  <script>
-    document.getElementById("track-form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const id = document.getElementById("complaint-id").value;
-      const email = document.getElementById("email").value;
-      const phone = document.getElementById("phone").value;
-
-      // Dummy placeholder response (You’ll connect to PHP/MySQL later)
-      const statusBox = document.getElementById("complaint-status");
-      if (id.trim() === "CMP2025-0012") {
-        statusBox.innerHTML = `
-          <div class="success-card">
-            <h3>Status: <span style="color: green;">Resolved</span></h3>
-            <p><strong>Complaint:</strong> Street Light Not Working</p>
-            <p><strong>Location:</strong> Near Library, MG Road</p>
-            <p><strong>Filed On:</strong> 10 July 2025</p>
-            <p><strong>Resolved On:</strong> 12 July 2025</p>
-            <p><strong>Official Remarks:</strong> Light replaced successfully.</p>
-          </div>
-        `;
-      } else {
-        statusBox.innerHTML = `
-          <div class="success-card" style="border-left-color: #dc3545; color: #721c24;">
-            <h3>Status: <span style="color: #dc3545;">Not Found</span></h3>
-            <p>No complaint found for ID <strong>${id}</strong>.</p>
-            <p>Please ensure you entered the correct Complaint ID.</p>
-          </div>
-        `;
-      }
-
-      statusBox.style.display = "block";
-    });
-  </script>
-</body>
-<div id="notification" class="popup"></div>
+  <div id="notification" class="popup"></div>
 </body>
 
 </html>
