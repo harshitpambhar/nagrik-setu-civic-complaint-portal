@@ -27,11 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             VALUES ('$title', '$description', '$location', '$category', '$image_path', '$date_noticed', '$citizen_name', '$phone')";
 
     if ($conn->query($sql) === TRUE) {
-        $complaint_id = $conn->insert_id;
-        echo "<script>alert('✅ Complaint registered successfully! Your Complaint ID is: $complaint_id'); 
-              window.location.href='track-complaint.html';</script>";
-    } else {
-        echo "❌ Error: " . $conn->error;
-    }
+    $complaint_id = $conn->insert_id;
+    // Redirect to details page with complaint ID
+    header("Location: complaint_details.php?id=" . $complaint_id);
+    exit();
+} else {
+    echo "❌ Error: " . $conn->error;
+}
+
 }
 ?>
