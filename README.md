@@ -51,19 +51,31 @@ Nagrik Setu simplifies the complaint process by:
 ---
 
 ## 📁 Project Structure
+nagrik-setu/
+│
+├── README.md
 ├── index.html
-├── register.html
-├── login.html
-├── register-complaint.html
-├── track-complaint.html
+│
+├── pages/
+│   ├── register.html
+│   ├── login.html
+│   ├── register-complaint.html
+│   └── track-complaint.html
+│
 ├── css/
-│ └── style.css
+│   └── style.css
+│
 ├── js/
-│ └── script.js
+│   └── script.js
+│
 ├── php/
-│ └── connect.php
-└── assets/
-└── images/
+│   └── connect.php
+│
+├── assets/
+│   └── images/
+│
+└── database/
+    └── schema.sql
 
 
 ---
