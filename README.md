@@ -48,35 +48,6 @@ Nagrik Setu simplifies the complaint process by:
 - Responsive and user-friendly UI
 - Basic admin-side complaint handling
 
----
-
-## 📁 Project Structure
-nagrik-setu/
-│
-├── README.md
-├── index.html
-│
-├── pages/
-│   ├── register.html
-│   ├── login.html
-│   ├── register-complaint.html
-│   └── track-complaint.html
-│
-├── css/
-│   └── style.css
-│
-├── js/
-│   └── script.js
-│
-├── php/
-│   └── connect.php
-│
-├── assets/
-│   └── images/
-│
-└── database/
-    └── schema.sql
-
 
 ---
 
